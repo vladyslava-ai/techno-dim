@@ -1,0 +1,35 @@
+<%# [ЗГЕНЕРОВАНО] порожній файл; [ВЛАСНИЙ КОД] підтвердження замовлення %>
+<div class="panel thanks">
+  <h1 class="ok-title">Дякуємо за замовлення!</h1>
+  <p class="muted center">Ваше замовлення успішно створено</p>
+
+  <div class="two-col" style="margin-top:28px">
+    <div>
+      <h3>Деталі замовлення:</h3>
+      <p><strong>Номер:</strong> <%= @order.id %></p>
+      <p><strong>Статус:</strong> <%= status_badge(@order.status) %></p>
+      <p><strong>Дата:</strong> <%= @order.created_at.in_time_zone("Europe/Kyiv").strftime("%d.%m.%Y, %H:%M:%S") %></p>
+      <p><strong>Доставка:</strong> <%= @order.delivery %></p>
+      <p><strong>Оплата:</strong> <%= @order.payment %></p>
+    </div>
+    <div>
+      <h3>Контактні дані:</h3>
+      <p><strong>Ім'я:</strong> <%= @order.name %></p>
+      <p><strong>Email:</strong> <%= @order.email.presence || "—" %></p>
+      <p><strong>Телефон:</strong> <%= @order.phone %></p>
+      <p><strong>Адреса:</strong> <%= @order.city %>, <%= @order.address %></p>
+    </div>
+  </div>
+
+  <h3>Товари:</h3>
+  <% @order.order_items.each do |i| %>
+    <div class="sum-line"><span><%= i.product_name %> × <%= i.quantity %></span><strong><%= money(i.subtotal) %></strong></div>
+  <% end %>
+  <div class="sum-total">Загальна сума: <span><%= money(@order.total) %></span></div>
+  <% if @order.comment.present? %><p class="muted">Коментар: <%= @order.comment %></p><% end %>
+
+  <p class="center">
+    <%= link_to "Продовжити покупки", products_path, class: "btn primary", style: "width:auto;padding:10px 22px" %>
+    <%= link_to "На головну", root_path, class: "btn pink", style: "width:auto;padding:10px 22px" %>
+  </p>
+</div>

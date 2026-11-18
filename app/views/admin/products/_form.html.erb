@@ -1,0 +1,17 @@
+<%# власний код: форма створення/редагування товару (partial) %>
+<div class="panel">
+  <%= form_with model: [:admin, product], class: "form-grid" do |f| %>
+    <% if product.errors.any? %><p class="flash err"><%= product.errors.full_messages.to_sentence %></p><% end %>
+    <label>Назва</label><%= f.text_field :name %>
+    <label>Бренд</label><%= f.text_field :brand %>
+    <label>Категорія</label><%= f.collection_select :category_id, Category.order(:name), :id, :name %>
+    <label>Ціна, ₴</label><%= f.number_field :price, step: "0.01", min: 0 %>
+    <label>Стара ціна, ₴ (необов'язково, для показу знижки)</label><%= f.number_field :old_price, step: "0.01", min: 0 %>
+    <label>Залишок на складі</label><%= f.number_field :stock, min: 0 %>
+    <label>Файл зображення (у папці public/products)</label><%= f.text_field :image, placeholder: "fridge_lg.jpg" %>
+    <label>Опис</label><%= f.text_area :description, rows: 3 %>
+    <label>Характеристики (по одній у рядок: Назва: значення)</label><%= f.text_area :specs, rows: 4 %>
+    <%= f.submit "Зберегти", class: "btn" %>
+  <% end %>
+  <p><%= link_to "← До списку", admin_products_path %></p>
+</div>

@@ -1,0 +1,11 @@
+<%# власний код: вкладки адмін-панелі %>
+<h1 class="page-title">Адмін-панель</h1>
+<div class="tabs">
+  <% [["Товари",        admin_products_path,  "products",  Product.count],
+      ["Відгуки",       admin_reviews_path,   "reviews",   Review.count],
+      ["Замовлення",    admin_orders_path,    "orders",    Order.count],
+      ["Статистика",    admin_stats_path,     "stats",     nil]].each do |label, path, ctrl, n| %>
+    <% text = n ? "#{label} (#{n})" : label %>
+    <%= link_to text, path, class: "pill #{'active' if controller_name == ctrl}" %>
+  <% end %>
+</div>

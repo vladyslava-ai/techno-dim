@@ -1,0 +1,11 @@
+<%# [ЗГЕНЕРОВАНО] порожній файл; [ВЛАСНИЙ КОД] редагування постачальника %>
+<h1 class="page-title">Редагування постачальника</h1>
+<div class="panel">
+  <%= form_with model: [:admin, @supplier], class: "form-grid" do |f| %>
+    <% if @supplier.errors.any? %><p class="flash err">Заповніть назву та контакт</p><% end %>
+    <label>Назва</label><%= f.text_field :name %>
+    <label>Контакт</label><%= f.text_field :contact %>
+    <%= f.submit "Зберегти", class: "btn" %>
+  <% end %>
+  <p><%= link_to "← До списку", admin_suppliers_path %></p>
+</div>

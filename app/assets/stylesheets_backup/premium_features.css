@@ -1,0 +1,33 @@
+/* Premium extensions: comparison, account, dashboard and safe payment preview */
+.premium-heading{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;margin:36px 0}.eyebrow{font-size:11px;font-weight:800;letter-spacing:.2em;color:#ffac71}.premium-heading h1{font-size:clamp(2rem,4vw,3.3rem);letter-spacing:-.04em;margin:8px 0}.premium-empty{padding:65px 24px;text-align:center;border:1px dashed #67503e;border-radius:24px;background:linear-gradient(145deg,#27242a,#191d25)}.comparison-scroll{overflow-x:auto;border:1px solid #393d48;border-radius:22px}.premium-table{width:100%;border-collapse:collapse;min-width:650px;background:#1b2028}.premium-table th,.premium-table td{padding:18px;border-bottom:1px solid #393d48;min-width:160px;vertical-align:middle}.premium-table th:first-child{min-width:160px;color:#ffbb88;text-align:left}.premium-table thead th{background:#242a34}.compare-item{display:flex;flex-direction:column;align-items:center;gap:12px}.compare-item img{max-height:120px;max-width:150px;object-fit:contain}.premium-price{font-size:1.2rem;font-weight:800;color:#ffac71}.premium-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:24px 0}.premium-kpi{background:linear-gradient(145deg,#2d3039,#1b1f27);border:1px solid #45414a;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:10px}.premium-kpi span{font-size:.87rem;color:#b8bdc8}.premium-kpi strong{font-size:clamp(1.4rem,2.8vw,2rem);color:#ffb078}.premium-grid-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:22px 0}.premium-order-row{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid #3b3e49}.premium-order-row>div{display:flex;flex-direction:column;gap:5px}.premium-order-row>div:last-child{text-align:right}.premium-order-row small{color:#aab0bc}.premium-status{font-size:.78rem;color:#ffb078}.premium-month-chart{display:flex;align-items:end;justify-content:space-around;gap:12px;height:190px;padding-top:20px}.premium-month{display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;height:100%}.premium-month-track{flex:1;width:100%;max-width:45px;display:flex;align-items:end;background:#262b34;border-radius:9px;overflow:hidden}.premium-month-track>div{width:100%;min-height:2px;background:linear-gradient(#ffb67d,#ed713b);border-radius:8px 8px 0 0}.premium-month small{color:#b5bac5}.payment-preview{border:1px solid #6a5141;border-radius:20px;padding:20px;margin:20px 0;background:linear-gradient(145deg,#29272a,#1c2129)}.payment-preview-top{display:flex;align-items:center;gap:14px}.payment-preview-top p{margin:4px 0}.payment-icon{display:grid;place-items:center;border-radius:12px;background:#473324;color:#ffb078;font-size:28px;width:48px;height:48px}.payment-card-visual{max-width:370px;aspect-ratio:1.75;background:linear-gradient(125deg,#484047,#222a35 70%,#70452d);border:1px solid #88654d;border-radius:19px;margin:18px 0;padding:22px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 18px 35px #0004}.payment-card-visual span{font-size:10px;letter-spacing:.13em;color:#e0c7b5}.payment-card-visual strong{font-size:clamp(1rem,2vw,1.5rem);letter-spacing:.1em;color:white}.payment-notice{color:#d9c5b7;font-size:.86rem;line-height:1.6;margin:8px 0}@media(max-width:700px){.premium-kpis{grid-template-columns:1fr}.premium-grid-two{grid-template-columns:1fr}.premium-heading{margin:22px 0}.premium-kpi{padding:18px}}
+
+
+/* Techno-Dim graphite + orange refinement (November 2026) */
+.techno-store{--bg:#26282d;--card:#34373d;--card2:#3c4047;--line:#4a4d55;--line2:#585c64;--nav:#222428;--text:#f6f4f1;--muted:#c2c3c8;--primary:#ff8a31;--blue:#ffb074;background:#26282d;color:var(--text)}
+.techno-store .topbar{background:#202226;border-bottom:1px solid #41434a}
+.techno-store .navbar{background:#292b30;border-bottom:1px solid #595047}
+.techno-store .site-footer{background:#222429;border-top:1px solid #6c4c38}
+.techno-store .feature,.techno-store .panel,.techno-store .auth-card,.techno-store .filter-bar,.techno-store .review{background:linear-gradient(145deg,#3b3e45,#32353b);border-color:#51545d}
+.techno-store .card{background:linear-gradient(150deg,#3a3d44,#30333a);border-color:#51545d}
+.techno-store .card:hover{border-color:#ff994b;box-shadow:0 18px 36px #ff8a3126}
+.techno-store .card .thumb{background:radial-gradient(circle,#4a4e56,#383b42)}
+.techno-store .cat-tile,.techno-store .info-card{background:#383b42;border:1px solid #555861;color:#f5f3f0}
+.techno-store .product{background:#373a41;border-color:#575b64}
+.techno-store .hero{background:radial-gradient(circle at 85% 25%,#ff944b66,transparent 32%),linear-gradient(110deg,#35353a,#4b3931 65%,#76452e)}
+.techno-store .nav-search{flex:1 1 330px;max-width:420px;min-width:250px;gap:0}
+.techno-store .nav-search input[type=search]{flex:1 1 auto;min-width:0;width:100%;min-height:48px;border-radius:12px 0 0 12px;padding:12px 16px;font-size:1rem;background:#3d4047;border:1px solid #656872}
+.techno-store .nav-search input[type=submit]{flex:0 0 auto;min-height:48px;border-radius:0 12px 12px 0;padding:12px 22px;background:#ff8a31;color:#202124}
+.techno-store .nav-search input[type=submit]:hover{background:#ffad6c}
+.techno-store .badge-sq{background:#494047!important;color:#ffb077!important;width:58px;height:58px;border:1px solid #866147;border-radius:18px;font-size:1.8rem;box-shadow:0 7px 22px #ff8a311a}
+.techno-store .info-card{padding:28px 24px;border-radius:18px;transition:transform .2s,border-color .2s}
+.techno-store .info-card:hover{transform:translateY(-3px);border-color:#a46c47}
+.techno-store .info-card h3{font-size:1.2rem;margin:16px 0 10px}
+.techno-store .info-card p{line-height:1.7}
+.techno-store .premium-kpi{background:linear-gradient(145deg,#41434a,#34373e);border-color:#555963}
+.techno-store .payment-preview{background:linear-gradient(145deg,#414047,#34373f)}
+.techno-store .premium-table{background:#34373e}
+.techno-store .premium-table thead th{background:#41454d}
+.techno-store .card .button_to{margin-top:8px}
+.techno-store .card .btn{min-height:46px}
+@media(max-width:1100px){.techno-store .nav-search{order:4;flex-basis:100%;max-width:none;width:100%}}
+@media(max-width:620px){.techno-store .nav-search{min-width:0}.techno-store .nav-search input[type=submit]{padding:10px 17px}.techno-store .info-card{padding:22px 18px}}

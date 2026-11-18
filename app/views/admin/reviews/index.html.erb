@@ -1,0 +1,35 @@
+<%# [ЗГЕНЕРОВАНО] порожній файл; [ВЛАСНИЙ КОД] модерація відгуків %>
+<%= render "admin/tabs" %>
+<div class="panel">
+  <h2 style="margin-top:0">Модерація відгуків</h2>
+  <% if @reviews.empty? %>
+    <p class="muted">Відгуків поки немає.</p>
+  <% else %>
+    <table class="data">
+      <tr><th>Товар</th><th>Автор</th><th>Оцінка</th><th>Відгук</th><th>Дата</th><th>Дія</th></tr>
+      <% @reviews.each do |r| %>
+        <tr>
+          <td><%= link_to r.product.name, product_path(r.product) %></td>
+          <td><strong><%= r.author %></strong></td>
+          <td class="rating"><%= stars(r.rating) %></td>
+          <td>
+            <p><%= r.body %></p>
+            <%= form_with model: [:admin, r], class: "admin-reply-form" do |f| %>
+              <%= f.label :admin_reply, "Відповідь від адміністрації" %>
+              <%= f.text_area :admin_reply, rows: 3, maxlength: 2000, placeholder: "Напишіть ввічливу відповідь покупцеві…" %>
+              <div class="admin-reply-actions">
+                <%= f.submit r.admin_reply.present? ? "Оновити відповідь" : "Надіслати відповідь", class: "btn" %>
+                <% if r.admin_reply.present? %><span class="muted">Опубліковано <%= l(r.admin_replied_at, format: :short) if r.admin_replied_at %></span><% end %>
+              </div>
+            <% end %>
+          </td>
+          <td><%= r.created_at.in_time_zone("Europe/Kyiv").strftime("%d.%m.%Y") %></td>
+          <td class="actions">
+            <%= button_to "✕", admin_review_path(r), method: :delete, class: "btn-sm del", title: "Видалити",
+                  form: { data: { turbo_confirm: "Видалити цей відгук?" } } %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+</div>

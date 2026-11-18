@@ -1,0 +1,60 @@
+<%# [ЗГЕНЕРОВАНО] порожній файл; [ВЛАСНИЙ КОД] статистика (діаграми на чистому CSS, без бібліотек) %>
+<%= render "admin/tabs" %>
+<div class="panel">
+  <h2 style="margin-top:0">Статистика</h2>
+
+  <div class="premium-kpis"><div class="premium-kpi"><span>Продажі без скасованих</span><strong><%= money(@sales_total) %></strong></div><div class="premium-kpi"><span>Середній чек</span><strong><%= money(@average_order) %></strong></div><div class="premium-kpi"><span>Замовлень</span><strong><%= @orders_count %></strong></div></div>
+  <div class="premium-grid-two"><section class="subpanel"><h3>Продажі за останні 6 місяців</h3><% months = (5.downto(0)).map { |n| n.months.ago.beginning_of_month } %><% max = [months.map { |m| @monthly_sales[m].to_f }.max.to_f, 1].max %><div class="premium-month-chart"><% months.each do |m| %><div class="premium-month"><div class="premium-month-track"><div style="height:<%= (@monthly_sales[m].to_f / max * 100).round %>%"></div></div><small><%= m.strftime("%m/%y") %></small></div><% end %></div></section><section class="subpanel"><h3>Топ товарів за продажами</h3><% if @popular_products.any? %><% @popular_products.each do |product| %><div class="premium-order-row"><span><%= product.name %></span><strong><%= product.units_sold.to_i %> шт.</strong></div><% end %><% else %><p class="muted">Поки немає проданих товарів.</p><% end %></section></div>
+  <div class="stat-cards">
+    <div class="stat"><b style="color:#2563eb"><%= @products_count %></b><span>Товарів</span></div>
+    <div class="stat"><b style="color:#f59e0b"><%= @stock_units %></b><span>Одиниць на складі</span></div>
+    <div class="stat"><b style="color:#059669"><%= money(@stock_value) %></b><span>Вартість запасів</span></div>
+    <div class="stat"><b style="color:#0ea5e9"><%= @orders_count %></b><span>Замовлень</span></div>
+  </div>
+
+  <div class="chart-row">
+    <div class="subpanel">
+      <h3 style="margin-top:0">Розподіл товарів по категоріях</h3>
+      <div class="pie-wrap">
+        <div class="pie" style="background: <%= pie_gradient(@by_category) %>"></div>
+        <ul class="legend">
+          <% @by_category.each_with_index do |(name, n), i| %>
+            <li><span class="sw" style="background: <%= ApplicationHelper::PIE_COLORS[i % ApplicationHelper::PIE_COLORS.size] %>"></span><%= name %> (<%= n %>)</li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <div class="subpanel">
+      <h3 style="margin-top:0">Кількість товарів по категоріях</h3>
+      <% max = [@by_category.values.max.to_i, 1].max %>
+      <div class="bars">
+        <% @by_category.each do |name, n| %>
+          <div class="bar-col">
+            <div class="bar-area"><div class="bar" style="height: <%= n * 100 / max %>%"><%= n %></div></div>
+            <small><%= name %></small>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-row">
+    <div class="subpanel">
+      <h3 style="margin-top:0">Інформація про товари</h3>
+      <% if @priciest %>
+        <p><strong>Найдорожчий товар:</strong> <%= @priciest.name %> (<%= money(@priciest.price) %>)</p>
+        <p><strong>Найдешевший товар:</strong> <%= @cheapest.name %> (<%= money(@cheapest.price) %>)</p>
+        <p><strong>Середня ціна:</strong> <%= money(@avg_price) %></p>
+      <% else %>
+        <p class="muted">Товарів немає.</p>
+      <% end %>
+    </div>
+    <div class="subpanel">
+      <h3 style="margin-top:0">Статус запасів</h3>
+      <p><strong>Товари в наявності:</strong> <%= @in_stock %> / <%= @products_count %></p>
+      <p><strong>Товари на вичерпанні (1–3 шт.):</strong> <%= @low_stock %></p>
+      <p><strong>Товари відсутні:</strong> <%= @out_of_stock %></p>
+    </div>
+  </div>
+</div>

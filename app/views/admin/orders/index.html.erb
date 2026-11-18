@@ -1,0 +1,28 @@
+<%# [ЗГЕНЕРОВАНО] порожній файл; [ВЛАСНИЙ КОД] замовлення та зміна статусу %>
+<%= render "admin/tabs" %>
+<div class="panel">
+  <h2 style="margin-top:0">Замовлення</h2>
+  <% if @orders.empty? %>
+    <p class="muted">Замовлень поки немає.</p>
+  <% else %>
+    <table class="data">
+      <tr><th>№</th><th>Дата</th><th>Клієнт</th><th>Товари</th><th>Сума</th><th>Статус</th><th>Змінити статус</th></tr>
+      <% @orders.each do |o| %>
+        <tr>
+          <td><%= link_to o.id, order_path(o) %></td>
+          <td><%= o.created_at.in_time_zone("Europe/Kyiv").strftime("%d.%m.%Y %H:%M") %></td>
+          <td><strong><%= o.name %></strong><br><small class="muted"><%= o.phone %>, <%= o.city %></small></td>
+          <td><%= o.order_items.map { |i| "#{i.product_name} × #{i.quantity}" }.join(", ") %></td>
+          <td><%= money(o.total) %></td>
+          <td><%= status_badge(o.status) %></td>
+          <td>
+            <%= form_with url: admin_order_path(o), method: :patch, class: "inline-form" do |f| %>
+              <%= f.select :status, Order::STATUSES, { selected: o.status } %>
+              <%= f.submit "OK", class: "btn-sm edit" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+</div>

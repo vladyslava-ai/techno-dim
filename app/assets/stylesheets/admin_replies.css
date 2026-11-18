@@ -1,0 +1,12 @@
+/* Replies to customer reviews — high contrast graphite / orange */
+.techno-store .admin-reply-form{display:flex;flex-direction:column;gap:10px;min-width:240px;margin-top:14px}
+.techno-store .admin-reply-form label{font-weight:700;color:#fff!important}
+.techno-store .admin-reply-form textarea{background:#171717!important;color:#fff!important;border:1px solid #777!important;border-radius:12px;padding:12px;min-height:100px;width:100%;resize:vertical}
+.techno-store .admin-reply-form textarea:focus{outline:2px solid #ff923c;outline-offset:2px}
+.techno-store .admin-reply-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.techno-store .admin-reply-actions .btn{background:#ff923c!important;color:#101010!important;font-weight:800;border:0;border-radius:10px;padding:11px 16px}
+.techno-store .official-admin-reply{margin:14px 0 4px 18px;padding:17px 20px;border-left:4px solid #ff923c;border-radius:0 14px 14px 0;background:#202020!important;color:#fff!important}
+.techno-store .official-admin-reply-heading{font-weight:800;color:#ffad65!important;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.techno-store .official-admin-reply-heading span{font-size:12px;color:#fff;background:#3b3b3b;border:1px solid #666;border-radius:99px;padding:3px 10px}
+.techno-store .official-admin-reply p,.techno-store .official-admin-reply small{color:#f4f4f4!important;margin:9px 0 0}
+@media(max-width:800px){.techno-store .admin-reply-form{min-width:180px}.techno-store .official-admin-reply{margin-left:6px}}

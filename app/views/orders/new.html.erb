@@ -1,0 +1,32 @@
+<%# [ЗГЕНЕРОВАНО] порожній файл; [ВЛАСНИЙ КОД] оформлення замовлення (checkout) %>
+<h1 class="page-title">Оформлення замовлення</h1>
+<div class="cart-layout">
+  <div class="panel">
+    <h2 style="margin-top:0">Контактні дані</h2>
+    <%= form_with model: @order, url: orders_path, class: "checkout-form" do |f| %>
+      <% if @order.errors.any? %><p class="flash err"><%= @order.errors.full_messages.to_sentence %></p><% end %>
+      <label>Ім'я та прізвище *</label><%= f.text_field :name %>
+      <div class="two-col">
+        <div><label>Телефон *</label><%= f.text_field :phone, placeholder: "0971234567" %></div>
+        <div><label>Email</label><%= f.email_field :email %></div>
+      </div>
+      <label>Місто *</label><%= f.text_field :city %>
+      <label>Адреса доставки *</label><%= f.text_field :address %>
+      <div class="two-col">
+        <div><label>Доставка</label><%= f.select :delivery, Order::DELIVERIES %></div>
+        <div><label>Оплата</label><%= f.select :payment, [["Карткою онлайн (демо, без списання)", "Карткою онлайн"], ["Накладений платіж", "Накладений платіж"]] %></div>
+      </div>
+      <label>Коментар до замовлення</label><%= f.text_area :comment, rows: 4 %>
+      <%= f.submit "Створити замовлення (без списання коштів)", class: "btn" %>
+    <% end %>
+  </div>
+
+  <aside class="panel">
+    <h2 style="margin-top:0">Ваше замовлення</h2>
+    <% @items.each do |product, qty| %>
+      <div class="sum-line"><span><%= product.name %> × <%= qty %></span><strong><%= money(product.price * qty) %></strong></div>
+    <% end %>
+    <div class="sum-total">Разом: <span><%= money(@total) %></span></div>
+    <%= link_to "Повернутися до кошика", cart_path, class: "btn ghost" %>
+  </aside>
+</div>

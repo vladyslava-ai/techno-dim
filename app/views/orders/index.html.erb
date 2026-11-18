@@ -1,0 +1,20 @@
+<%# [ЗГЕНЕРОВАНО] порожній файл; [ВЛАСНИЙ КОД] історія замовлень користувача (особистий кабінет) %>
+<h1 class="page-title">Мої замовлення</h1>
+<div class="panel">
+  <% if @orders.empty? %>
+    <p class="muted">У вас ще немає замовлень. <%= link_to "Перейти до каталогу", products_path %></p>
+  <% else %>
+    <table class="data">
+      <tr><th>№</th><th>Дата</th><th>Товари</th><th>Сума</th><th>Статус</th></tr>
+      <% @orders.each do |o| %>
+        <tr>
+          <td><%= link_to o.id, order_path(o) %></td>
+          <td><%= o.created_at.in_time_zone("Europe/Kyiv").strftime("%d.%m.%Y %H:%M") %></td>
+          <td><%= o.order_items.map { |i| "#{i.product_name} × #{i.quantity}" }.join(", ") %></td>
+          <td><%= money(o.total) %></td>
+          <td><%= status_badge(o.status) %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+</div>

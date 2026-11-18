@@ -1,0 +1,24 @@
+<%# власний код: картка товару (partial), використовується на головній, в каталозі та у «схожих» %>
+<article class="card">
+  <% if product.stock <= 3 %><span class="ribbon low">Залишилось <%= product.stock %></span>
+  <% elsif product.average_rating >= 4.5 %><span class="ribbon top">Топ оцінка</span><% end %>
+  <% unless admin? %>
+    <% if current_user %>
+      <% fav = favorite_ids.include?(product.id) %>
+      <%= button_to favorite_path(product), method: (fav ? :delete : :post), form_class: "fav-form",
+                    class: "fav-btn #{'on' if fav}", title: (fav ? "Прибрати з обраного" : "В обране") do %><%= heart_icon %><% end %>
+    <% else %>
+      <%= link_to login_path, class: "fav-btn fav-link", title: "Увійдіть, щоб додати в обране" do %><%= heart_icon %><% end %>
+    <% end %>
+  <% end %>
+  <%= link_to product_path(product), class: "thumb" do %><%= product_image(product) %><% end %>
+  <h3><%= link_to product.name, product_path(product) %></h3>
+  <p class="muted"><%= product.brand %> · <%= product.category.name %></p>
+  <p class="rating"><%= stars(product.average_rating) %> <small>(<%= product.reviews.size %>)</small></p>
+  <p class="price"><%= price_block(product) %></p>
+  <% if admin? %>
+    <%= link_to "Редагувати", edit_admin_product_path(product), class: "btn ghost" %>
+  <% else %>
+    <%= button_to "Додати в кошик", add_to_cart_path(product), class: "btn" %>
+  <% end %>
+</article>

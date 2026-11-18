@@ -1,0 +1,62 @@
+:root {
+  --bg: #080808;
+  --bg-soft: #111111;
+  --surface: #171717;
+  --surface-2: #202020;
+  --text: #ffffff;
+  --muted: #c5c5c5;
+  --accent: #ff8a31;
+}
+
+html, body {
+  background: #080808 !important;
+  color: #ffffff !important;
+}
+
+header, nav, footer,
+.navbar, .site-header, .site-footer {
+  background-color: #101010 !important;
+  color: #ffffff !important;
+}
+
+main, section, .container, .page-wrapper {
+  color: #ffffff;
+}
+
+.card, .product-card, .category-card,
+.panel, .stat-card, .dashboard-card {
+  background-color: #191919 !important;
+  color: #ffffff !important;
+  border-color: #353535 !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #ffffff;
+}
+
+p, label, .text-muted, .text-secondary {
+  color: #d4d4d4 !important;
+}
+
+input, select, textarea {
+  background-color: #242424 !important;
+  color: #ffffff !important;
+  border-color: #555555 !important;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #bbbbbb !important;
+}
+
+a:hover {
+  color: #ff9e55;
+}
+
+.product-card:hover, .card:hover {
+  border-color: #ff8a31 !important;
+}
+
+table, th, td {
+  color: #ffffff;
+  border-color: #383838;
+}

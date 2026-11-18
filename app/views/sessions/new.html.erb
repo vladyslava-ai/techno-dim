@@ -1,0 +1,20 @@
+<%# [ЗГЕНЕРОВАНО] порожній файл; [ВЛАСНИЙ КОД] сторінка входу %>
+<div class="auth-card">
+  <h1>Увійти</h1>
+  <%= form_with url: login_path do |f| %>
+    <label>Email</label>
+    <%= f.email_field :email, value: params[:email], required: true %>
+    <label>Пароль</label>
+    <%= f.password_field :password, required: true %>
+    <%= f.submit "Увійти", class: "btn primary" %>
+  <% end %>
+  <hr>
+  <p class="muted">Швидкий вхід (демо)</p>
+  <div class="demo">
+    <%= button_to "Увійти як адміністратор", login_path,
+          params: { email: "admin@techno-dim.example", password: "admin12345" }, class: "btn primary" %>
+    <%= button_to "Увійти як покупець", login_path,
+          params: { email: "buyer@techno-dim.example", password: "buyer12345" }, class: "btn" %>
+  </div>
+  <p class="muted">Немає облікового запису? <%= link_to "Зареєструватися", register_path %></p>
+</div>

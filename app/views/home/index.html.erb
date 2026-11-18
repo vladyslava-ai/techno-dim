@@ -1,0 +1,44 @@
+<section class="hero hero-redesign" aria-labelledby="hero-title">
+  <div class="hero-copy">
+    <span class="hero-kicker">ТЕХНІКА, ЯКА ПРАЦЮЄ НА ВАС</span>
+    <h1 id="hero-title">Комфорт починається <span>з правильного вибору.</span></h1>
+    <p>Побутова техніка для щоденних справ. Обирайте перевірені бренди, порівнюйте характеристики та замовляйте зручно.</p>
+    <div class="hero-actions">
+      <%= link_to "Перейти до каталогу →", products_path, class: "btn hero-cta" %>
+      <%= link_to "Про наш магазин", about_path, class: "hero-secondary" %>
+    </div>
+  </div>
+  <div class="hero-visual" aria-hidden="true">
+    <div class="hero-halo"></div>
+    <div class="hero-photo"><%= image_tag "/products/coffee_philips.jpg", alt: "", loading: "eager" %></div>
+    <span class="hero-visual-caption">Техніка для дому <strong>на кожен день</strong></span>
+  </div>
+</section>
+
+<section class="features" aria-label="Переваги магазину">
+  <div class="feature"><span class="feature-symbol" aria-hidden="true">↗</span><div><strong>Зручна доставка</strong><p>Нова Пошта, кур’єр або самовивіз</p></div></div>
+  <div class="feature"><span class="feature-symbol" aria-hidden="true">✓</span><div><strong>Офіційна гарантія</strong><p>Техніка від перевірених виробників</p></div></div>
+  <div class="feature"><span class="feature-symbol" aria-hidden="true">▣</span><div><strong>Гнучка оплата</strong><p>Оберіть зручний спосіб при замовленні</p></div></div>
+</section>
+
+<div class="section-heading"><div><span class="section-kicker">ЗНАЙДІТЬ СВОЄ</span><h2>Категорії товарів</h2></div><%= link_to "Увесь каталог →", products_path, class: "section-link" %></div>
+<div class="cat-grid">
+  <% @categories.each do |c| %>
+    <%= link_to products_path(category_id: c.id), class: "cat-tile" do %>
+      <span class="cat-ico"><%= category_icon(c.name) %></span>
+      <strong><%= c.name %></strong>
+      <small><%= @counts[c.id].to_i %> товарів</small>
+      <span class="cat-arrow">Переглянути →</span>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="section-heading"><div><span class="section-kicker">ВАРТО УВАГИ</span><h2>Популярні товари</h2></div><%= link_to "Переглянути всі →", products_path, class: "section-link" %></div>
+<div class="grid">
+  <%= render partial: "shared/product", collection: @popular, as: :product %>
+</div>
+
+<section class="home-bottom-banner">
+  <div><span class="section-kicker">ТЕХНО-ДІМ</span><h2>Продуманий вибір. Приємні покупки.</h2><p>Від пошуку потрібної техніки до оформлення замовлення — усе в одному місці.</p></div>
+  <%= link_to "Обрати техніку →", products_path, class: "btn" %>
+</section>

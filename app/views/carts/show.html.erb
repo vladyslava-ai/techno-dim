@@ -1,0 +1,35 @@
+<%# [ЗГЕНЕРОВАНО] порожній файл; [ВЛАСНИЙ КОД] сторінка кошика %>
+<h1 class="page-title">Кошик</h1>
+<% if @items.empty? %>
+  <div class="panel"><p>Ваш кошик порожній. <%= link_to "Перейти до каталогу товарів", products_path %></p></div>
+<% else %>
+  <div class="cart-layout">
+    <div class="panel">
+      <% @items.each do |product, qty| %>
+        <div class="cart-item">
+          <div class="ci-img"><%= product_image(product) %></div>
+          <div>
+            <%= link_to product.name, product_path(product), style: "color:inherit;font-weight:600" %>
+            <div class="muted"><%= product.brand %></div>
+            <div class="muted"><%= money(product.price) %></div>
+          </div>
+          <%= form_with url: update_cart_item_path(product), method: :patch do |f| %>
+            <%= f.number_field :quantity, value: qty, min: 0, max: product.stock, class: "qty",
+                  onchange: "this.form.requestSubmit()" %>
+          <% end %>
+          <%= button_to "Видалити", remove_from_cart_path(product), method: :delete, class: "btn-del" %>
+        </div>
+      <% end %>
+    </div>
+
+    <aside class="panel">
+      <h2 style="margin-top:0">Підсумок замовлення</h2>
+      <% @items.each do |product, qty| %>
+        <div class="sum-line"><span><%= product.name %> × <%= qty %></span><span><%= money(product.price * qty) %></span></div>
+      <% end %>
+      <div class="sum-total">Загальна сума: <span><%= money(@total) %></span></div>
+      <%= link_to "Оформити замовлення", new_order_path, class: "btn" %>
+      <%= link_to "Продовжити покупки", products_path, class: "btn pink" %>
+    </aside>
+  </div>
+<% end %>

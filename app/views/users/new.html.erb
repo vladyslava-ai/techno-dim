@@ -1,0 +1,13 @@
+<%# [ЗГЕНЕРОВАНО] порожній файл; [ВЛАСНИЙ КОД] сторінка реєстрації %>
+<div class="auth-card">
+  <h1>Реєстрація</h1>
+  <%= form_with model: @user, url: register_path do |f| %>
+    <% if @user.errors.any? %><p class="flash err"><%= @user.errors.full_messages.to_sentence %></p><% end %>
+    <label>Ім'я</label><%= f.text_field :name %>
+    <label>Email</label><%= f.email_field :email %>
+    <label>Пароль (мінімум 8 символів)</label><%= f.password_field :password %>
+    <label>Підтвердження пароля</label><%= f.password_field :password_confirmation %>
+    <%= f.submit "Зареєструватися", class: "btn primary" %>
+  <% end %>
+  <p class="muted">Вже є обліковий запис? <%= link_to "Увійти", login_path %></p>
+</div>

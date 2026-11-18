@@ -1,0 +1,15 @@
+<%# [ЗГЕНЕРОВАНО] порожній файл; [ВЛАСНИЙ КОД] сторінка «Обране» %>
+<h1 class="page-title">Обране <small class="muted">(<%= @products.size %>)</small></h1>
+
+<% if @products.empty? %>
+  <div class="panel empty-state">
+    <span class="empty-ico"><%= heart_icon %></span>
+    <h2>У вас поки немає обраних товарів</h2>
+    <p class="muted">Натискайте на сердечко на картці товару, і він з'явиться тут.</p>
+    <%= link_to "Перейти до каталогу", products_path, class: "btn" %>
+  </div>
+<% else %>
+  <div class="grid">
+    <%= render partial: "shared/product", collection: @products, as: :product %>
+  </div>
+<% end %>

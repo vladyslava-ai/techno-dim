@@ -1,0 +1,25 @@
+<%# [ЗГЕНЕРОВАНО] порожній файл; [ВЛАСНИЙ КОД] список товарів в адмін-панелі %>
+<%= render "admin/tabs" %>
+<div class="panel">
+  <div class="admin-head">
+    <h2 style="margin:0">Управління товарами</h2>
+    <%= link_to "+ Додати товар", new_admin_product_path, class: "btn" %>
+  </div>
+  <table class="data" style="margin-top:16px">
+    <tr><th>Назва</th><th>Ціна</th><th>Категорія</th><th>На складі</th><th>Зображення</th><th>Дія</th></tr>
+    <% @products.each do |p| %>
+      <tr>
+        <td><strong><%= p.name %></strong></td>
+        <td><%= money(p.price) %></td>
+        <td><%= p.category.name %></td>
+        <td><%= p.stock %> шт</td>
+        <td><%= product_image(p) %></td>
+        <td class="actions">
+          <%= link_to "✎", edit_admin_product_path(p), class: "btn-sm edit", title: "Редагувати" %>
+          <%= button_to "✕", admin_product_path(p), method: :delete, class: "btn-sm del", title: "Видалити",
+                form: { data: { turbo_confirm: "Видалити «#{p.name}»?" } } %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

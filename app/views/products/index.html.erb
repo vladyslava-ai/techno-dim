@@ -1,0 +1,44 @@
+<%# [ЗГЕНЕРОВАНО] порожній файл; [ВЛАСНИЙ КОД] панель фільтрів + список товарів %>
+<% auto = "this.form.requestSubmit()" %>
+<h1 class="page-title">Каталог товарів</h1>
+
+<%= form_with url: products_path, method: :get, class: "filter-bar" do |f| %>
+  <%= f.search_field :q, value: params[:q], placeholder: "Пошук товарів..." %>
+  <%= f.select :category_id, options_from_collection_for_select(@categories, :id, :name, params[:category_id]),
+        { include_blank: "Усі категорії" }, onchange: auto %>
+  <%= f.select :brand, options_for_select(@brands.map { |b, n| ["#{b} (#{n})", b] }, params[:brand]),
+        { include_blank: "Усі бренди" }, onchange: auto %>
+  <%= f.number_field :min_price, value: params[:min_price], min: 0, placeholder: "Ціна від, ₴", onchange: auto %>
+  <%= f.number_field :max_price, value: params[:max_price], min: 0, placeholder: "Ціна до, ₴", onchange: auto %>
+  <%= f.select :sort, options_for_select([["Новизна", "new"], ["Ціна: зростання", "price_asc"], ["Ціна: спадання", "price_desc"]], params[:sort]),
+        {}, onchange: auto %>
+  <%= f.submit "Застосувати", class: "btn primary" %>
+  <%= link_to "Скинути фільтри", products_path, class: "btn ghost" %>
+<% end %>
+
+<div class="tags">
+  <% { brand: "Бренд", min_price: "від", max_price: "до", q: "Пошук" }.each do |key, label| %>
+    <% if params[key].present? %>
+      <%= link_to "#{label}: #{params[key]} ✕", products_path(request.query_parameters.except(key.to_s, "page")), class: "tag" %>
+    <% end %>
+  <% end %>
+</div>
+<p class="muted">Знайдено товарів: <%= @total %></p>
+
+<% if @products.empty? %>
+  <p>Товарів за обраними фільтрами не знайдено. Спробуйте послабити критерії пошуку.</p>
+<% else %>
+  <div class="grid">
+    <%= render partial: "shared/product", collection: @products, as: :product %>
+  </div>
+
+  <% if @total_pages > 1 %>
+    <nav class="pager">
+      <% if @page > 1 %><%= link_to "‹ Назад", products_path(request.query_parameters.merge("page" => @page - 1)) %><% end %>
+      <% (1..@total_pages).each do |n| %>
+        <%= link_to n, products_path(request.query_parameters.merge("page" => n)), class: ("current" if n == @page) %>
+      <% end %>
+      <% if @page < @total_pages %><%= link_to "Далі ›", products_path(request.query_parameters.merge("page" => @page + 1)) %><% end %>
+    </nav>
+  <% end %>
+<% end %>

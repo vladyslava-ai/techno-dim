@@ -1,0 +1,29 @@
+<%# [ЗГЕНЕРОВАНО] порожній файл; [ВЛАСНИЙ КОД] керування постачальниками %>
+<%= render "admin/tabs" %>
+<div class="panel">
+  <h2 style="margin-top:0">Управління постачальниками</h2>
+  <table class="data">
+    <tr><th>Назва</th><th>Контакт</th><th>Дія</th></tr>
+    <% @suppliers.each do |s| %>
+      <tr>
+        <td><strong><%= s.name %></strong></td>
+        <td><%= s.contact %></td>
+        <td class="actions">
+          <%= link_to "✎", edit_admin_supplier_path(s), class: "btn-sm edit", title: "Редагувати" %>
+          <%= button_to "✕", admin_supplier_path(s), method: :delete, class: "btn-sm del", title: "Видалити",
+                form: { data: { turbo_confirm: "Видалити постачальника «#{s.name}»?" } } %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+  <div class="subpanel">
+    <h3 style="margin-top:0">Додати нового постачальника</h3>
+    <% if @supplier.errors.any? %><p class="flash err">Заповніть назву та контакт</p><% end %>
+    <%= form_with model: @supplier, url: admin_suppliers_path, class: "inline-form" do |f| %>
+      <%= f.text_field :name, placeholder: "Назва постачальника *" %>
+      <%= f.text_field :contact, placeholder: "Контакт (телефон, email) *" %>
+      <%= f.submit "Додати", class: "btn" %>
+    <% end %>
+  </div>
+</div>

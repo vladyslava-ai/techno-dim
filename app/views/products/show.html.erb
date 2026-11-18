@@ -1,0 +1,70 @@
+<%# [ЗГЕНЕРОВАНО] порожній файл; [ВЛАСНИЙ КОД] картка товару, характеристики, відгуки %>
+<nav class="crumbs">
+  <%= link_to "Головна", root_path %> <span>&rsaquo;</span>
+  <%= link_to "Каталог", products_path %> <span>&rsaquo;</span>
+  <%= link_to @product.category.name, products_path(category_id: @product.category_id) %> <span>&rsaquo;</span>
+  <b><%= @product.name %></b>
+</nav>
+<div class="product">
+  <div class="gallery"><%= product_image(@product) %></div>
+  <div>
+    <h1><%= @product.name %></h1>
+    <p class="muted">Артикул: <%= "TD-%05d" % @product.id %> · <%= @product.brand %> ·
+      <%= link_to @product.category.name, products_path(category_id: @product.category_id) %></p>
+    <p class="price big"><%= price_block(@product) %></p>
+    <p><%= @product.stock > 0 ? "В наявності (#{@product.stock} шт.)" : "Немає в наявності" %></p>
+    <p><%= @product.description %></p>
+    <%= button_to "⇄ Порівняти", add_to_compare_path(@product), class: "btn ghost" %>
+    <% if admin? %>
+      <%= link_to "Редагувати товар", edit_admin_product_path(@product), class: "btn ghost" %>
+    <% else %>
+      <%= button_to "Додати в кошик", add_to_cart_path(@product), class: "btn" %>
+      <% if current_user && favorite_ids.include?(@product.id) %>
+        <%= button_to "Прибрати з обраного", favorite_path(@product), method: :delete, class: "btn ghost" %>
+      <% else %>
+        <%= button_to "Додати в обране", favorite_path(@product), class: "btn ghost" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<h2>Технічні характеристики</h2>
+<table class="specs">
+  <% @product.spec_pairs.each do |name, value| %>
+    <tr><th><%= name %></th><td><%= value %></td></tr>
+  <% end %>
+</table>
+
+<h2>Відгуки <small class="muted"><%= stars(@product.average_rating) %> <%= @product.average_rating %> / 5</small></h2>
+<% if @reviews.empty? %><p class="muted">Відгуків поки немає.</p><% end %>
+<% @reviews.each do |r| %>
+  <div class="review">
+    <strong><%= r.author %></strong> <span class="rating"><%= stars(r.rating) %></span>
+    <p><%= r.body %></p>
+    <% if r.admin_reply.present? %>
+      <div class="official-admin-reply">
+        <div class="official-admin-reply-heading">✓ Адміністрація Техно-Дім <span>Офіційна відповідь</span></div>
+        <p><%= simple_format(r.admin_reply) %></p>
+        <% if r.admin_replied_at %><small><%= r.admin_replied_at.in_time_zone("Europe/Kyiv").strftime("%d.%m.%Y") %></small><% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<h3>Залишити відгук</h3>
+<% if current_user %>
+  <%= form_with model: [@product, @review], class: "review-form" do |f| %>
+    <%= f.select :rating, (1..5).to_a.reverse.map { |n| ["#{n} ★", n] } %>
+    <%= f.text_area :body, placeholder: "Ваш відгук", rows: 3 %>
+    <%= f.submit "Надіслати як #{current_user.name}", class: "btn" %>
+  <% end %>
+<% else %>
+  <p><%= link_to "Увійдіть", login_path %> або <%= link_to "зареєструйтесь", register_path %>, щоб залишити відгук.</p>
+<% end %>
+
+<% if @related.any? %>
+  <h2>Схожі товари</h2>
+  <div class="grid">
+    <%= render partial: "shared/product", collection: @related, as: :product %>
+  </div>
+<% end %>
